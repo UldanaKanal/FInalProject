@@ -3,7 +3,6 @@ package com.example.finalproject.presentation.screen.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.finalproject.domain.repository.MovieRepository
-import com.example.finalproject.domain.model.Movie
 import com.example.finalproject.domain.model.MovieDetails
 import com.example.finalproject.domain.model.Trailer
 import com.example.finalproject.presentation.base.BaseViewModel

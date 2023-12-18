@@ -6,7 +6,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalproject.databinding.ItemMovieLargeBinding
-import com.example.finalproject.domain.model.Movie
 import com.example.finalproject.presentation.adapter_common.OnMovieClickListener
 import com.example.finalproject.presentation.image_loader.ImageLoader
 
