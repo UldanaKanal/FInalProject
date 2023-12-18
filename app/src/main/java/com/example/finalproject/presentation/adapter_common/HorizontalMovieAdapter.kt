@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalproject.databinding.ItemHorizontalMovieBinding
 import com.example.finalproject.domain.model.Movie
-import com.example.finalproject.presentation.image_loader.ImageLoader
 
 class HorizontalMovieAdapter(
     private val imageLoader: ImageLoader
