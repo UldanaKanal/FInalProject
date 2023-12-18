@@ -1,75 +1,62 @@
-package com.example.finalproject.presentation;
+package com.example.finalproject.presentation
 
-import android.content.Context;
-import androidx.activity.contextaware.OnContextAvailableListener;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import dagger.hilt.android.internal.lifecycle.DefaultViewModelFactories;
-import dagger.hilt.android.internal.managers.ActivityComponentManager;
-import dagger.hilt.internal.GeneratedComponentManagerHolder;
-import dagger.hilt.internal.UnsafeCasts;
-import java.lang.Object;
-import java.lang.Override;
+import androidx.activity.contextaware.OnContextAvailableListener
+import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.internal.lifecycle.DefaultViewModelFactories
+import dagger.hilt.android.internal.managers.ActivityComponentManager
+import dagger.hilt.internal.GeneratedComponentManagerHolder
+import dagger.hilt.internal.UnsafeCasts
 
 /**
  * A generated base class to be extended by the @dagger.hilt.android.AndroidEntryPoint annotated class. If using the Gradle plugin, this is swapped as the base class via bytecode transformation.
  */
-public abstract class Hilt_MainActivity extends AppCompatActivity implements GeneratedComponentManagerHolder {
-  private volatile ActivityComponentManager componentManager;
+abstract class Hilt_MainActivity : AppCompatActivity, GeneratedComponentManagerHolder {
+    @Volatile
+    private var componentManager: ActivityComponentManager? = null
+    private val componentManagerLock = Any()
+    private var injected = false
 
-  private final Object componentManagerLock = new Object();
+    internal constructor() : super() {
+        _initHiltInternal()
+    }
 
-  private boolean injected = false;
+    internal constructor(contentLayoutId: Int) : super(contentLayoutId) {
+        _initHiltInternal()
+    }
 
-  Hilt_MainActivity() {
-    super();
-    _initHiltInternal();
-  }
+    private fun _initHiltInternal() {
+        addOnContextAvailableListener(OnContextAvailableListener { inject() })
+    }
 
-  Hilt_MainActivity(int contentLayoutId) {
-    super(contentLayoutId);
-    _initHiltInternal();
-  }
+    fun generatedComponent(): Any {
+        return componentManager().generatedComponent()
+    }
 
-  private void _initHiltInternal() {
-    addOnContextAvailableListener(new OnContextAvailableListener() {
-      @Override
-      public void onContextAvailable(Context context) {
-        inject();
-      }
-    });
-  }
+    protected fun createComponentManager(): ActivityComponentManager {
+        return ActivityComponentManager(this)
+    }
 
-  @Override
-  public final Object generatedComponent() {
-    return this.componentManager().generatedComponent();
-  }
-
-  protected ActivityComponentManager createComponentManager() {
-    return new ActivityComponentManager(this);
-  }
-
-  @Override
-  public final ActivityComponentManager componentManager() {
-    if (componentManager == null) {
-      synchronized (componentManagerLock) {
+    fun componentManager(): ActivityComponentManager? {
         if (componentManager == null) {
-          componentManager = createComponentManager();
+            synchronized(componentManagerLock) {
+                if (componentManager == null) {
+                    componentManager = createComponentManager()
+                }
+            }
         }
-      }
+        return componentManager
     }
-    return componentManager;
-  }
 
-  protected void inject() {
-    if (!injected) {
-      injected = true;
-      ((MainActivity_GeneratedInjector) this.generatedComponent()).injectMainActivity(UnsafeCasts.<MainActivity>unsafeCast(this));
+    protected fun inject() {
+        if (!injected) {
+            injected = true
+            (generatedComponent() as MainActivity_GeneratedInjector).injectMainActivity(UnsafeCasts.< MainActivity > unsafeCast < MainActivity ? > this)
+        }
     }
-  }
 
-  @Override
-  public ViewModelProvider.Factory getDefaultViewModelProviderFactory() {
-    return DefaultViewModelFactories.getActivityFactory(this, super.getDefaultViewModelProviderFactory());
-  }
+    val defaultViewModelProviderFactory: Factory
+        get() = DefaultViewModelFactories.getActivityFactory(
+            this,
+            super.getDefaultViewModelProviderFactory()
+        )
 }
