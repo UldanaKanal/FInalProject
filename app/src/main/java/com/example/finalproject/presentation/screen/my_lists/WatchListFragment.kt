@@ -1,4 +1,4 @@
-package com.example.finalproject.presentation.screen.my_lists;
+package com.example.finalproject.presentation.screen.my_lists
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,7 +24,7 @@ class WatchListFragment : BaseFragment() {
     private lateinit var binding: FragmentWatchListBinding
     private lateinit var adapter: HorizontalMovieAdapter
     private val viewModel: MyListsViewModel by viewModels(
-            ownerProducer = { requireParentFragment() }
+        ownerProducer = { requireParentFragment() }
     )
 
     @Inject
